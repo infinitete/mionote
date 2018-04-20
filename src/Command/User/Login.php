@@ -15,15 +15,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class Login extends  BaseCommand
 {
-    protected function configure()
-    {
+    protected function configure() {
         $this->setName("user:token:set")
             ->setDescription("Set your Evernote API Token")
-            ->setHelp("Set your Evernote API Token");
+            ->setHelp("Usage: mionote user:token:set");
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $io = new SymfonyStyle($input, $output);
         $io->title("Set API Token");
 

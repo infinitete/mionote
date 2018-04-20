@@ -10,6 +10,7 @@ use Symfony\Component\Console\Application;
 $application = new Application();
 
 $application->add(new Mionote\Command\User\Login());
+$application->add(new Mionote\Command\User\Editor());
 $application->add(new Mionote\Command\Note\Find());
 $application->add(new Mionote\Command\Note\Create());
 

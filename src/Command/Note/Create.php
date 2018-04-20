@@ -54,7 +54,7 @@ class Create extends BaseCommand
 
         if ($_title === null) {
             $io->caution("The title CAN NOT Be empty");
-            return;
+            return null;
         }
 
         $notebook  = Notebook::getNotebook($_notebook);
@@ -62,7 +62,7 @@ class Create extends BaseCommand
             if (Notebook::createNotebook($_notebook) === false ) {
                $io->caution("Failed to create note \"{$_notebook}\" ");
 
-               return;
+               return null;
             }
 
             $io->note("The Notebook \"${_notebook}\" has been automatically created");
@@ -73,20 +73,25 @@ class Create extends BaseCommand
             $config_path = File::getHome() . '/' . File::CONFIG_PATH;
             $file_name   = md5($_title . time()) . '.md';
 
-            $editor = exec("which emacs");
+            $editor = File::readEditor();
 
             if ($editor === '') {
                 $io->caution("Please configure editor");
 
-                return;
+                return null;
             }
 
             $target_file = $config_path . '/' . $file_name;
-            exec("emacs {$target_file}");
+            @passthru(escapeshellcmd("{$editor} {$target_file}"));
+
+            if (!is_file($target_file)) {
+                $io->caution("New note has been cancelled");
+
+                return null;
+            }
+
             $content = file_get_contents($target_file);
             @unlink($target_file);
-
-
         }
 
         $success = Note::createNote($_title, $content, $notebook, $tags);
