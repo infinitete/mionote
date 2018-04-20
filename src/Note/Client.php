@@ -7,7 +7,7 @@ use Mionote\Common\File;
 
 class Client
 {
-    const SANDBOX = true;
+    const SANDBOX = false;
 
     /**
      * Get EvernoteClient with User's token
