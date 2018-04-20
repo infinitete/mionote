@@ -6,6 +6,13 @@ use Evernote\Model\Notebook;
 
 class Note
 {
+    /**
+     * Find Notes by title
+     *
+     * @param string $title
+     *
+     * @return array
+     */
     public static function find(string $title): array
     {
         $client = Client::getCleint();
@@ -56,6 +63,13 @@ class Note
         return $notes;
     }
 
+    /**
+     * Get a note by GUID
+     *
+     * @param string $guid
+     *
+     * @return \Evernote\Model\Note
+     */
     public static function getNote(string  $guid): \Evernote\Model\Note
     {
         $client = Client::getCleint();
@@ -63,6 +77,16 @@ class Note
         return $client->getNote($guid);
     }
 
+    /**
+     * Create a note
+     *
+     * @param string $title
+     * @param string $content
+     * @param Notebook $notebook
+     * @param array  $tags
+     *
+     * @return bool
+     */
     public static function createNote(string $title, string $content, Notebook $notebook, array $tags = [])
     {
         $note = new \Evernote\Model\Note();

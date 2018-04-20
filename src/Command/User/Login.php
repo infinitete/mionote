@@ -18,27 +18,27 @@ class Login extends  BaseCommand
     protected function configure()
     {
         $this->setName("user:token:set")
-            ->setDescription("设置你的Token")
-            ->setHelp("通过这个命令来设置你的Evernote Token");
+            ->setDescription("Set your Evernote API Token")
+            ->setHelp("Set your Evernote API Token");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $io->title("设置Token");
+        $io->title("Set API Token");
 
-        $token = $io->ask('输入你在Evernote上设置的Token', null, function($token) {
+        $token = $io->ask('Evernote API Token', null, function($token) {
             return $token;
         });
 
         if (empty($token)) {
-            return $io->warning("请输入您的Token");
+            return $io->warning("Input your Evernote Token please");
         }
 
         if(\Mionote\Common\File::writeToken($token)) {
-            $io->success("设置成功");
+            $io->success("Your token has been set");
         } else {
-            $io->caution('设置失败，请检查$HOME目录是否可写');
+            $io->caution('Set API token failed, check whether your HOME directory is writable');
         }
     }
 }

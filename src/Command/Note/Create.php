@@ -31,12 +31,12 @@ class Create extends BaseCommand
     protected function configure()
     {
         $this->setName("note:create");
-        $this->setDescription("创建笔记")->setHelp("创建一条笔记");
+        $this->setDescription("Create a note")->setHelp("Create a note");
 
-        $this->addOption("title", 'title', InputOption::VALUE_REQUIRED, '标题', null);
-        $this->addOption("content", 'content', InputOption::VALUE_OPTIONAL, '内容', null);
-        $this->addOption("notebook", 'notebook', InputOption::VALUE_OPTIONAL, '(保存到)哪个笔记本', 'Notes');
-        $this->addOption("tags", 'tags', InputOption::VALUE_OPTIONAL, "笔记标签，多个标签使用\",\"分隔", '');
+        $this->addOption("title", 'title', InputOption::VALUE_REQUIRED, 'Title', null);
+        $this->addOption("content", 'content', InputOption::VALUE_OPTIONAL, 'Content', null);
+        $this->addOption("notebook", 'notebook', InputOption::VALUE_OPTIONAL, 'Which notebook the note saved, default Notes', 'Notes');
+        $this->addOption("tags", 'tags', InputOption::VALUE_OPTIONAL, "Tags for the note will be created, seperated by \",\"", '');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -53,19 +53,19 @@ class Create extends BaseCommand
         $tags = array_filter($tags, function($x) { return strlen($x) !== 0; });
 
         if ($_title === null) {
-            $io->caution("标题不能为空");
+            $io->caution("The title CAN NOT Be empty");
             return;
         }
 
         $notebook  = Notebook::getNotebook($_notebook);
         if ($notebook === null) {
             if (Notebook::createNotebook($_notebook) === false ) {
-               $io->caution("Notebook {$_notebook} 创建失败");
+               $io->caution("Failed to create note \"{$_notebook}\" ");
 
                return;
             }
 
-            $io->note("Notebook ${_notebook} 已经被创建");
+            $io->note("The Notebook \"${_notebook}\" has been automatically created");
             $notebook  = Notebook::getNotebook($_notebook);
         }
 
@@ -76,7 +76,7 @@ class Create extends BaseCommand
             $editor = exec("which emacs");
 
             if ($editor === '') {
-                $io->caution("请配置好编辑器");
+                $io->caution("Please configure editor");
 
                 return;
             }
@@ -92,11 +92,11 @@ class Create extends BaseCommand
         $success = Note::createNote($_title, $content, $notebook, $tags);
 
         if ($success) {
-            $io->success("笔记创建成功");
+            $io->success("The note was created successfully");
 
             return null;
         }
 
-        $io->caution("笔记创建失败");
+        $io->caution("Failed to create the note");
     }
 }

@@ -22,7 +22,7 @@ class Find extends BaseCommand
     protected function configure()
     {
         $this->setName("note:find");
-        $this->setDescription("查找一些笔记")->setHelp("查找一些笔记");
+        $this->setDescription("Find some notes")->setHelp("Find some notes by title");
 
         $this->addArgument("title", InputArgument::REQUIRED);
     }
@@ -38,7 +38,7 @@ class Find extends BaseCommand
         $count = count($notes);
 
         if ($count === 0) {
-            $io->caution("没有找到与“{$title}”相关的笔记");
+            $io->caution("Found No One about \"{$title}\"");
             return null;
         }
 
@@ -52,7 +52,7 @@ class Find extends BaseCommand
         $choices = [];
         $table   = [];
 
-        $io->success("找到{$count}条笔记");
+        $io->success("Find {$count} note(s)");
 
         foreach ($notes as $k => $note) {
             $created_at = date('Y-m-d H:i:s', $note['created_at'] / 1000);
@@ -60,17 +60,17 @@ class Find extends BaseCommand
             $choices[$k] = $k;
 
             array_push($table, [
-                '序号' => $k,
-                '标题' => $note['title'],
-                '创建时间' => $created_at,
-                '更新时间' => $updated_at,
+                'Sort' => $k,
+                'Title' => $note['title'],
+                'Created At' => $created_at,
+                'Updated At' => $updated_at,
                 'GUID'    => $note['guid']
             ]);
         }
 
-        $io->table(['序号', '标题', '创建时间', '更新时间', 'GUID'], $table);
+        $io->table(['Sort', 'Title', 'Created At', 'Updated At', 'GUID'], $table);
 
-        $choice = $io->choice("请输入笔记序号：", $choices, 0);
+        $choice = $io->choice("Choice：", $choices, 0);
 
         $io->title($notes[$choice]['title']);
 
