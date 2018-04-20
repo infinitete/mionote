@@ -1,0 +1,29 @@
+{
+    "name": "mio/mionote",
+    "description": "A PHP implementation of Evernote",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Infinitete",
+            "email": "adogwithfragrancy@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Mionote\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/console": "^4.0",
+        "evernote/evernote-cloud-sdk-php": "dev-master",
+        "php": "^7.0",
+        "soundasleep/html2text": "^0.5.0"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+
+<?php
+
+require_once('vendor/autoload.php');
+
+
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+$application->add(new Mionote\Command\User\Login());
+$application->add(new Mionote\Command\Note\Find());
+$application->add(new Mionote\Command\Note\Create());
+
+// ... register commands
+
+try {
+    $application->run();
+} catch (\Exception $e) {
+    echo "\r\n 程序无法运行 \r\n";
+}
