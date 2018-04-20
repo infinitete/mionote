@@ -19,16 +19,14 @@ use Mionote\Note\Note;
  */
 class Find extends BaseCommand
 {
-    protected function configure()
-    {
+    protected function configure() {
         $this->setName("note:find");
         $this->setDescription("Find some notes")->setHelp("Find some notes by title");
 
         $this->addArgument("title", InputArgument::REQUIRED);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $title = $input->getArgument('title');
 
         $io = new SymfonyStyle($input, $output);
@@ -77,8 +75,7 @@ class Find extends BaseCommand
         $io->writeln(self::showNote($notes[$choice]['guid']));
     }
 
-    public static function showNote(string $guid)
-    {
+    public static function showNote(string $guid) {
         $note = Note::getNote($guid);
         $content = $note->getContent();
         $convert = new EnmlToHtmlConverter();

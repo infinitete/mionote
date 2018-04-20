@@ -110,4 +110,16 @@ class Note
             return false;
         }
     }
+
+    /**
+     * Delete a note from Evernote
+     *
+     * @param \Evernote\Model\Note $note
+     */
+    public static function deleteNote(\Evernote\Model\Note $note)
+    {
+        $client = Client::getCleint();
+
+        $client->deleteNote($note);
+    }
 }

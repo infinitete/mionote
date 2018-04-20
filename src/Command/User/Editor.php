@@ -20,7 +20,7 @@ class Editor extends BaseCommand
 {
     protected function configure() {
         $this->setName("user:editor:set")
-            ->setDescription("Set an editor for create an modify notes")
+            ->setDescription("Set an editor for create or modify notes")
             ->setHelp("Usage: mionote user:editor:set /usr/bin/emacs");
 
         $this->addArgument("path", InputArgument::REQUIRED, "Editor path");
