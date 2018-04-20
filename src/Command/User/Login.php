@@ -7,6 +7,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Command for Set Your Evenote API token
+ *
+ * Examples:
+ * mionote user:token:set
+ */
 class Login extends  BaseCommand
 {
     protected function configure()

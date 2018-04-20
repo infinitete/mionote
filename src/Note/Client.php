@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mio
- * Date: 18-4-16
- * Time: 下午7:10
- */
 
 namespace Mionote\Note;
 
@@ -15,6 +9,11 @@ class Client
 {
     const SANDBOX = true;
 
+    /**
+     * Get EvernoteClient with User's token
+     *
+     * @return \Evernote\Client || null
+     */
     public static function  getCleint()
     {
         $token = File::readToken();

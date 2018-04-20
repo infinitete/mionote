@@ -11,6 +11,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 use Mionote\Note\Note;
 
+/**
+ * The Command for Find some notes
+ *
+ * Examples:
+ * mionote note:find Hello
+ */
 class Find extends BaseCommand
 {
     protected function configure()

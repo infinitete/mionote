@@ -2,8 +2,8 @@
 
 namespace Mionote\Command\Note;
 
-use Evernote\Enml\Converter\EnmlToHtmlConverter;
 use Mionote\Note\Note;
+use Evernote\Enml\Converter\EnmlToHtmlConverter;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputArgument;
@@ -15,6 +15,17 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Mionote\Note\Notebook;
 use Mionote\Common\File;
 
+/**
+ * The Command for Create note
+ *
+ * Examples:
+ * mionote note:create --title Hello --notebook Job --tags=job,mio --content "Test content"
+ * ;; Create a note with title "Hello", notebook "Job", tags "job" and "mio", content is "Test content"
+ * ;; IF FILL CONTENT IN COMMAND LINE, mionote WILL NOT CALL YOUR EDITOR
+ *
+ * Option "notebook" is optional, defaults to "Notes"
+ * Option "tags" are seperated by ","
+ */
 class Create extends BaseCommand
 {
     protected function configure()
