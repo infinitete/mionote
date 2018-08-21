@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Input\InputOption;
 
 use Mionote\Note\Note;
 
@@ -23,7 +24,7 @@ class Find extends BaseCommand
         $this->setName("note:find");
         $this->setDescription("Find some notes")->setHelp("Find some notes by title");
 
-        $this->addArgument("title", InputArgument::REQUIRED);
+        $this->addArgument("title", InputArgument::OPTIONAL);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
@@ -31,7 +32,11 @@ class Find extends BaseCommand
 
         $io = new SymfonyStyle($input, $output);
 
-        $notes = Note::find($title);
+            if ($title == '') {
+                $io->note("'' means will find latest 10 notes");
+            }
+
+            $notes = Note::find($title);
 
         $count = count($notes);
 
